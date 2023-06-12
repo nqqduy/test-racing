@@ -10,9 +10,6 @@ races_df = {
 }  
 
 drivers_df = {
-    "pos": [],
     "driver": [],
-    "car": [],
-    "pts": [],
-    "date": [],
+    "nationality": [],
 }

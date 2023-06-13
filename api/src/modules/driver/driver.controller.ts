@@ -39,7 +39,6 @@ export class DriverController extends BaseController {
   };
 
   public routes() {
-    // thứ hạn theo năm của tay đua
-    this.router.get("/rank", this.getListRank);
+    this.router.get("/ranking", this.getListRank);
   }
 }

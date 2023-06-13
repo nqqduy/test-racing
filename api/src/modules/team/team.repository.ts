@@ -20,9 +20,13 @@ export class TeamRepository {
   public async getListRank(where: string[]): Promise<ResultCrawl[]> {
     const result = await this.crawlingRepo
       .createQueryBuilder("crawl")
-      .select(["crawl.id AS id", "SUM(crawl.pts) AS pts", "crawl.car AS car"])
+      .select([
+        "ANY_VALUE(crawl.id) AS id",
+        "SUM(crawl.pts) AS pts",
+        "ANY_VALUE(crawl.car) AS car",
+      ])
       .where(where.join(" AND "))
-      .orderBy("SUM(crawl.pts) DESC, crawl.driver", "ASC")
+      .orderBy("SUM(crawl.pts) DESC, ANY_VALUE(crawl.driver)", "ASC")
       .groupBy("crawl.car")
       .getRawMany();
 

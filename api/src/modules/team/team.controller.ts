@@ -36,7 +36,6 @@ export class TeamController extends BaseController {
     }
   };
   public routes() {
-    // thứ hạng tay đua theo năm
-    this.router.get("/rank", this.getListRank);
+    this.router.get("/ranking", this.getListRank);
   }
 }

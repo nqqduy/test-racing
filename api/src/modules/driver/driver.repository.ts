@@ -21,10 +21,10 @@ export class DriverRepository {
     const result = await this.crawlingRepo
       .createQueryBuilder("crawl")
       .select([
-        "crawl.driver AS driver",
+        "ANY_VALUE(crawl.driver) AS driver",
         "SUM(crawl.pts) AS pts",
-        "crawl.nationality AS nationality",
-        "crawl.car AS car",
+        "ANY_VALUE(crawl.nationality) AS nationality",
+        "ANY_VALUE(crawl.car) AS car",
       ])
       .where(where.join(" AND "))
       .orderBy("SUM(crawl.pts) DESC, crawl.driver", "ASC")

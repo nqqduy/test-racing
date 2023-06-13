@@ -1,5 +1,8 @@
+import { NextFunction, Response, Request } from "express";
 import { BaseController } from "../base.controller";
 import { DriverService } from "./driver.service";
+import { IGetListRankDriver } from "./interfaces/get-list-rank.interface";
+import { GetListDTO } from "./dto/get-list.dto";
 
 export class DriverController extends BaseController {
   private driverService: DriverService;
@@ -9,10 +12,34 @@ export class DriverController extends BaseController {
     this.driverService = DriverService.getInstance();
   }
 
+  private getListRank = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const data = new GetListDTO({ ...req.query });
+      const result = await this.driverService.getList(data);
+
+      const responseData: IGetListRankDriver[] = result.map((item, index) => {
+        item = JSON.parse(JSON.stringify(item));
+        return {
+          pos: index + 1,
+          driver: item.driver,
+          pts: Number(item.pts),
+          nationality: item.nationality,
+          car: item.car,
+        };
+      });
+
+      return res.status(200).send(responseData);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public routes() {
-    // this.router.get("/", validator(ArtworkListDTO), this.getList);
-    // this.router.get("/:id(\\d+)", this.getOne);
-    // this.router.post("/", validator(ArtworkCreateDTO), this.create);
-    // this.router.delete("/:id(\\d+)", this.delete);
+    // thứ hạn theo năm của tay đua
+    this.router.get("/rank", this.getListRank);
   }
 }

@@ -9,10 +9,5 @@ export class RaceController extends BaseController {
     this.raceService = RaceService.getInstance();
   }
 
-  public routes() {
-    // this.router.get("/", validator(ArtworkListDTO), this.getList);
-    // this.router.get("/:id(\\d+)", this.getOne);
-    // this.router.post("/", validator(ArtworkCreateDTO), this.create);
-    // this.router.delete("/:id(\\d+)", this.delete);
-  }
+  public routes() {}
 }

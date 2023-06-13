@@ -1,3 +1,4 @@
+import { GetListRankDTO } from "./dto/get-list-rank.dto";
 import { TeamRepository } from "./team.repository";
 
 export class TeamService {
@@ -13,5 +14,14 @@ export class TeamService {
       this.teamService.init();
     }
     return this.teamService;
+  }
+
+  public async getListRank(data: GetListRankDTO) {
+    let where: string[] = [];
+    if (data.year) {
+      where.push(`crawl.year = '${data.year}'`);
+    }
+    const result = await this.teamRepository.getListRank(where);
+    return result;
   }
 }

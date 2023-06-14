@@ -50,7 +50,7 @@ export class RaceRepository {
         "crawl.pts as pts",
       ])
       .where(where.join(" AND "))
-      .orderBy("crawl.id", "ASC")
+      .orderBy("crawl.pos", "ASC")
       .getRawMany();
 
     return result;

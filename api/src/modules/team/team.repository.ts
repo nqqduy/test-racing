@@ -32,4 +32,20 @@ export class TeamRepository {
 
     return result;
   }
+
+  public async getListResultByYearAndLocation(where: string[]) {
+    const result = await this.crawlingRepo
+      .createQueryBuilder("crawl")
+      .select([
+        "crawl.location AS location",
+        "SUM(crawl.pts) AS pts",
+        "ANY_VALUE(crawl.date) AS date",
+      ])
+      .where(where.join(" AND "))
+      .orderBy("crawl.id", "ASC")
+      .groupBy("crawl.location")
+      .getRawMany();
+
+    return result;
+  }
 }

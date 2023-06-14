@@ -3,6 +3,7 @@ import { BaseController } from "../base.controller";
 import { DriverService } from "./driver.service";
 import { IGetListRankDriver } from "./interfaces/get-list-rank.interface";
 import { GetListDTO } from "./dto/get-list.dto";
+import { GetListResultByYearAndLocationDTO } from "./dto/get-list-result-by-year-and-location.dto";
 
 export class DriverController extends BaseController {
   private driverService: DriverService;
@@ -38,7 +39,26 @@ export class DriverController extends BaseController {
     }
   };
 
+  private getListResultByYearAndLocation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const data = new GetListResultByYearAndLocationDTO({
+        ...req.query,
+      });
+      const result = await this.driverService.getListResultByYearAndLocation(
+        data
+      );
+
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  };
   public routes() {
     this.router.get("/ranking", this.getListRank);
+    this.router.get("/result", this.getListResultByYearAndLocation);
   }
 }

@@ -33,4 +33,24 @@ export class DriverRepository {
 
     return result;
   };
+
+  public getListResultByYearAndLocation = async (
+    where: string[]
+  ): Promise<ResultCrawl[]> => {
+    const result = await this.crawlingRepo
+      .createQueryBuilder("crawl")
+      .select([
+        "crawl.location AS location",
+        "crawl.pts AS pts",
+        "crawl.nationality AS nationality",
+        "crawl.car AS car",
+        "crawl.pos AS pos",
+        "crawl.date AS date",
+      ])
+      .where(where.join(" AND "))
+      .orderBy("crawl.id", "ASC")
+      .getRawMany();
+
+    return result;
+  };
 }

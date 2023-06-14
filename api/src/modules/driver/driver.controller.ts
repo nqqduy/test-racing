@@ -4,6 +4,7 @@ import { DriverService } from "./driver.service";
 import { IGetListRankDriver } from "./interfaces/get-list-rank.interface";
 import { GetListDTO } from "./dto/get-list.dto";
 import { GetListResultByYearAndLocationDTO } from "./dto/get-list-result-by-year-and-location.dto";
+import { Response as dataResponse } from "../../common/response";
 
 export class DriverController extends BaseController {
   private driverService: DriverService;
@@ -33,7 +34,7 @@ export class DriverController extends BaseController {
         };
       });
 
-      return res.status(200).send(responseData);
+      return res.status(200).send(dataResponse.Success(responseData));
     } catch (error) {
       next(error);
     }
@@ -52,7 +53,7 @@ export class DriverController extends BaseController {
         data
       );
 
-      return res.status(200).send(result);
+      return res.status(200).send(dataResponse.Success(result));
     } catch (error) {
       next(error);
     }

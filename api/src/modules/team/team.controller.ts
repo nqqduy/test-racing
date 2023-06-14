@@ -4,6 +4,7 @@ import { TeamService } from "./team.service";
 import { IGetListRankTeam } from "./interfaces/get-list-rank.interface";
 import { GetListRankDTO } from "./dto/get-list-rank.dto";
 import { GetListResultByYearAndLocationDTO } from "./dto/get-list-result-by-year-and-location.dto";
+import { Response as dataResponse } from "../../common/response";
 
 export class TeamController extends BaseController {
   private teamService: TeamService;
@@ -31,7 +32,7 @@ export class TeamController extends BaseController {
         };
       });
 
-      return res.status(200).send(responseData);
+      return res.status(200).send(dataResponse.Success(responseData));
     } catch (error) {
       next(error);
     }
@@ -50,7 +51,7 @@ export class TeamController extends BaseController {
         data
       );
 
-      return res.status(200).send(result);
+      return res.status(200).send(dataResponse.Success(result));
     } catch (error) {
       next(error);
     }

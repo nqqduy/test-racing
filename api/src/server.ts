@@ -55,6 +55,7 @@ class Server {
         res.status(500).send({
           result: false,
           message: err.message,
+          data: null,
           errorCode: "INTERNAL_SV_ERR",
         });
       }

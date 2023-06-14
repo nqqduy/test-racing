@@ -42,7 +42,7 @@ export class TeamRepository {
         "ANY_VALUE(crawl.date) AS date",
       ])
       .where(where.join(" AND "))
-      .orderBy("crawl.id", "ASC")
+      .orderBy("ANY_VALUE(crawl.id)", "ASC")
       .groupBy("crawl.location")
       .getRawMany();
 

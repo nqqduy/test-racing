@@ -3,6 +3,7 @@ import { BaseController } from "../base.controller";
 import { RaceService } from "./race.service";
 import { GetListResultByYearDTO } from "./dto/get-list-result-by-year.dto";
 import { GetListResultByYearAndLocationDTO } from "./dto/get-list-result-by-location.dto";
+import { Response as dataResponse } from "../../common/response";
 
 export class RaceController extends BaseController {
   private raceService: RaceService;
@@ -23,7 +24,7 @@ export class RaceController extends BaseController {
       });
       const result = await this.raceService.getListResult(data);
 
-      return res.status(200).send(result);
+      return res.status(200).send(dataResponse.Success(result));
     } catch (error) {
       next(error);
     }
@@ -42,7 +43,7 @@ export class RaceController extends BaseController {
         data
       );
 
-      return res.status(200).send(result);
+      return res.status(200).send(dataResponse.Success(result));
     } catch (error) {
       next(error);
     }

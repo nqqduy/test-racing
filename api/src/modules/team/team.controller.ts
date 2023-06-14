@@ -3,6 +3,7 @@ import { BaseController } from "../base.controller";
 import { TeamService } from "./team.service";
 import { IGetListRankTeam } from "./interfaces/get-list-rank.interface";
 import { GetListRankDTO } from "./dto/get-list-rank.dto";
+import { GetListResultByYearAndLocationDTO } from "./dto/get-list-result-by-year-and-location.dto";
 
 export class TeamController extends BaseController {
   private teamService: TeamService;
@@ -35,7 +36,27 @@ export class TeamController extends BaseController {
       next(error);
     }
   };
+
+  private getListResultByYearAndLocation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const data = new GetListResultByYearAndLocationDTO({
+        ...req.query,
+      });
+      const result = await this.teamService.getListResultByYearAndLocation(
+        data
+      );
+
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  };
   public routes() {
     this.router.get("/ranking", this.getListRank);
+    this.router.get("/result", this.getListResultByYearAndLocation);
   }
 }

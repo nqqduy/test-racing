@@ -12,7 +12,7 @@ This is a REST API for handling the results of an F1 race.
 1. Clone this repository by running the following command:
 
 ```sh
-$ git pull https://github.com/nqqduy/test-racing.git
+$ git clone https://github.com/nqqduy/test-racing.git
 ```
 
 2. Navigate to the crawling folder:
